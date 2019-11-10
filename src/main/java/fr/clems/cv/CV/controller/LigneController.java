@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class LigneController {
     }
     
     @GetMapping("/{id}")
-    public Ligne getById(Long id) {
+    public Ligne getById(@PathVariable("id") Long id) {
         return this.ligneDao.findById(id).get();
     }
     
@@ -38,8 +39,8 @@ public class LigneController {
     }
     
     @DeleteMapping("/{id}")
-    public String delete(Ligne ligne) {
-        this.ligneDao.deleteById(ligne.getId());
+    public String delete(@PathVariable("id") Long id) {
+        this.ligneDao.deleteById(id);
         
         return "Salut ! C'est moi !";
     }
