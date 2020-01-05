@@ -55,7 +55,8 @@ public class LigneController {
         
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pas de ligne correspodante");
     }
-    
+
+/*    
     @PostMapping("/")
     public boolean add(Ligne ligne) {
         Ligne l = this.ligneDao.save(ligne);
@@ -69,4 +70,5 @@ public class LigneController {
         
         return "Salut ! C'est moi !";
     }
+*/
 }
