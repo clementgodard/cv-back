@@ -45,10 +45,10 @@ public class LigneDateComparator implements Comparator<Ligne> {
         
         try {
             Date dateDebutLigne1 = sdf.parse(tabDate1[0]);
-            Date dateFinLigne1   = sdf.parse(tabDate1[1]);
+            // Date dateFinLigne1   = sdf.parse(tabDate1[1]);
             
             Date dateDebutLigne2 = sdf.parse(tabDate2[0]);
-            Date dateFinLigne2   = sdf.parse(tabDate2[1]);
+            // Date dateFinLigne2   = sdf.parse(tabDate2[1]);
             
             return dateDebutLigne2.compareTo(dateDebutLigne1);
             
