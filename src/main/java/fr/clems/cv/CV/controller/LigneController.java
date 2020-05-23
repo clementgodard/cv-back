@@ -2,7 +2,6 @@ package fr.clems.cv.CV.controller;
 
 import fr.clems.cv.CV.dao.LigneDAO;
 import fr.clems.cv.CV.entity.Ligne;
-import fr.clems.cv.CV.util.LigneDateComparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -34,17 +33,14 @@ public class LigneController {
         return this.ligneDao.findAll();
     }
     
+    /*
     @GetMapping("/categorie/{categorie}")
     public List<Ligne> getByCategorie(@PathVariable String categorie) {
         List<Ligne> liste = this.ligneDao.getLignesByCategorie(categorie);
         
-        // Si la date est plus longue que le traditionnel JJ/MM/AAAA
-        if (liste.size() > 0 && liste.get(0).getDate().length() > 10) {
-            liste.sort(new LigneDateComparator());
-        }
-        
-        return liste;
+        return this.ligneDao.findAll();
     }
+    */
     
     @GetMapping("/{id:[\\d]+}")
     public Ligne getById(@PathVariable("id") Long id, HttpServletResponse response) {

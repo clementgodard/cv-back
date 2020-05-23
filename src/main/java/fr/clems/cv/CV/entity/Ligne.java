@@ -2,6 +2,9 @@ package fr.clems.cv.CV.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URL;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="ligne")
@@ -18,13 +23,23 @@ public class Ligne implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String contenu;
+    private float note;
     
     @JsonBackReference
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="categorie_id", nullable=false)
     private Categorie categorie;
-    private String date;
-
+    
+    @Temporal(TemporalType.DATE)
+    private Date dateDebut;
+    @Temporal(TemporalType.DATE)
+    private Date dateFin;
+    
+    private URL lien;
+    private String image;
+    
+    private boolean active;
+    
     public Long getId() {
         return id;
     }
@@ -47,13 +62,53 @@ public class Ligne implements Serializable {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
+    }   
+
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public String getDate() {
-        return date;
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }    
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public URL getLien() {
+        return lien;
+    }
+
+    public void setLien(URL lien) {
+        this.lien = lien;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public float getNote() {
+        return note;
+    }
+
+    public void setNote(float note) {
+        this.note = note;
+    }
 }
