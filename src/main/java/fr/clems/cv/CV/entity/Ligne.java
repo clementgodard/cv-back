@@ -1,11 +1,11 @@
 package fr.clems.cv.CV.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.net.URI;
 import java.net.URL;
 import java.util.Date;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="ligne")
@@ -23,16 +24,22 @@ public class Ligne implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String contenu;
-    private float note;
+    private Float note;
+    private int position;
     
     @JsonBackReference
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name="categorie_id", nullable=false)
     private Categorie categorie;
     
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dateDebut;
+    
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dateFin;
     
     private URL lien;
@@ -104,11 +111,19 @@ public class Ligne implements Serializable {
         this.image = image;
     }
 
-    public float getNote() {
+    public Float getNote() {
         return note;
     }
 
-    public void setNote(float note) {
+    public void setNote(Float note) {
         this.note = note;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

@@ -1,6 +1,8 @@
 package fr.clems.cv.CV.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -9,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,12 +19,11 @@ import javax.persistence.Table;
 @Table(name="categorie")
 public class Categorie implements Serializable 
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(unique=true)
+    @Column(unique = true, nullable = false)
     private String libelle;
     private int position;
     private boolean active;
@@ -29,6 +31,12 @@ public class Categorie implements Serializable
     @JsonManagedReference
     @OneToMany(mappedBy="categorie", cascade={CascadeType.ALL})
     private List<Ligne> lignes;
+    
+    @JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class, 
+        property = "id")
+    @ManyToOne
+    private Categorie parent;
             
     public Long getId() {
         return id;
@@ -68,6 +76,14 @@ public class Categorie implements Serializable
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Categorie getParent() {
+        return parent;
+    }
+
+    public void setParent(Categorie parent) {
+        this.parent = parent;
     }
     
 }

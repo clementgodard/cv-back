@@ -30,17 +30,9 @@ public class LigneController {
     @GetMapping("/")
     public List<Ligne> getAll() 
     {
-        return this.ligneDao.findAll();
+        return this.ligneDao.getAllByActiveOrderByDateFin();
+        // return this.ligneDao.findAll();
     }
-    
-    /*
-    @GetMapping("/categorie/{categorie}")
-    public List<Ligne> getByCategorie(@PathVariable String categorie) {
-        List<Ligne> liste = this.ligneDao.getLignesByCategorie(categorie);
-        
-        return this.ligneDao.findAll();
-    }
-    */
     
     @GetMapping("/{id:[\\d]+}")
     public Ligne getById(@PathVariable("id") Long id, HttpServletResponse response) {
@@ -52,7 +44,7 @@ public class LigneController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pas de ligne correspodante");
     }
 
-/*    
+    /* Methodes à protéger */
     @PostMapping("/")
     public boolean add(Ligne ligne) {
         Ligne l = this.ligneDao.save(ligne);
@@ -60,11 +52,10 @@ public class LigneController {
         return l.getId() > 0;
     }
     
-    @DeleteMapping("/{id}:[\\d]+")
-    public String delete(@PathVariable("id") Long id) {
+    /* Methodes à protéger */
+    @DeleteMapping("/{id:[\\d]+}")
+    public boolean delete(@PathVariable("id") Long id) {
         this.ligneDao.deleteById(id);
-        
-        return "Salut ! C'est moi !";
+        return true;
     }
-*/
 }
