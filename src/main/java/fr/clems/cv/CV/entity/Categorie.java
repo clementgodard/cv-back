@@ -19,7 +19,9 @@ import javax.persistence.Table;
 @Table(name="categorie")
 public class Categorie implements Serializable 
 {
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
@@ -37,6 +39,8 @@ public class Categorie implements Serializable
         property = "id")
     @ManyToOne
     private Categorie parent;
+    
+    private boolean imageCategorie = false;
             
     public Long getId() {
         return id;
@@ -85,5 +89,13 @@ public class Categorie implements Serializable
     public void setParent(Categorie parent) {
         this.parent = parent;
     }
+
+	public boolean isImageCategorie() {
+		return imageCategorie;
+	}
+
+	public void setImageCategorie(boolean imageCategorie) {
+		this.imageCategorie = imageCategorie;
+	}
     
 }
