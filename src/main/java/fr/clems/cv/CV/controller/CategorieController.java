@@ -3,6 +3,8 @@ package fr.clems.cv.CV.controller;
 import fr.clems.cv.CV.dao.CategorieDAO;
 import fr.clems.cv.CV.entity.Categorie;
 import fr.clems.cv.CV.entity.Ligne;
+import fr.clems.cv.CV.pojo.CategorieCV;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,25 +32,37 @@ public class CategorieController {
     
     // Retourne toutes les catégories active avec les lignes actives à l'intérieurs
     @GetMapping("/")
-    public List<Categorie> getAll() {
+    public List<CategorieCV> getAll(@RequestParam(defaultValue="false", name="actif") boolean active) {
         List<Categorie> lc = this.categorieRepo.getAllActiveOrderByPositionAsc();
 
-        ArrayList<Categorie> res = new ArrayList<Categorie>();
+        ArrayList<CategorieCV> res = new ArrayList<CategorieCV>();
         
         for (Categorie c : lc) {
             
             ArrayList<Ligne> r = new ArrayList<Ligne>();
             
             for (Ligne l : c.getLignes()) {
-                if (l.isActive())
+                if (l.isActive() || active)
                     r.add(l);
             }
             
             c.setLignes(r);
-            res.add(c);
+            
+            if (c.getParent() == null)
+            	res.add(new CategorieCV(c));
         }
         
-        return lc;
+        for (Categorie c: lc) {
+        	if (c.getParent() != null) {
+        		for (CategorieCV cat: res) {
+        			if (cat.equals(c.getParent())) {
+        				cat.enfants.add(new CategorieCV(c));
+        			}
+        		}
+        	}
+        }
+        
+        return res;
     }
     
     @GetMapping("/{id:[\\d]+}")
@@ -60,13 +75,11 @@ public class CategorieController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pas de categorie correspondante");
     }
     
-    /* Methodes à protéger */
     @PostMapping("/")
     public boolean add(Categorie cat) {
         return this.categorieRepo.save(cat).getId() != null;
     }
     
-    /* Methodes à protéger */
     @DeleteMapping("/{id:[\\d]+}")
     public boolean delete(@PathVariable("id") Long id) {
         this.categorieRepo.deleteById(id);
