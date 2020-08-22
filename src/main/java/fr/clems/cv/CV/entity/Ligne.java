@@ -36,13 +36,16 @@ public class Ligne implements Serializable {
     
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date dateDebut;
     
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date dateFin;
+    
+    @Column(name="onlyYearDate")
+    private boolean onlyYear = false;
     
     private URL lien;
     private String image;
@@ -128,4 +131,12 @@ public class Ligne implements Serializable {
     public void setPosition(int position) {
         this.position = position;
     }
+
+	public boolean isOnlyYear() {
+		return onlyYear;
+	}
+
+	public void setOnlyYear(boolean onlyYear) {
+		this.onlyYear = onlyYear;
+	}
 }
