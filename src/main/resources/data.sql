@@ -4,7 +4,7 @@ INSERT INTO categorie (id, active, libelle, position, parent_id, image_categorie
 (2, 1, 'Expériences Professionnelles', 1, NULL, 0),
 (3, 1, 'Compétences informatiques', 2, NULL, 0),
 (4, 1, 'Langues étrangères', 3, NULL, 0),
-(5, 1, 'Centres d''intérêts', 4, NULL, 0),
+(5, 1, 'Centres d''intérêts', 4, NULL, 1),
 (6, 1, 'Informations complémentaires', 5, NULL, 0),
 (7, 1, 'Langages', 0 ,3, 1),
 (8, 1, 'Frameworks', 1, 3, 1);
@@ -21,10 +21,10 @@ INSERT INTO ligne (id, active, contenu, date_debut, date_fin, image, lien, note,
 
 (8, 1, 'Anglais - Niveau B2', NULL, NULL, NULL, NULL, 4, 0, 4, 0),
 
-(9, 1, 'Culture générale', NULL, NULL, NULL, NULL, NULL, 0, 5, 0),
-(10, 1, 'Randonnée pédestre', NULL, NULL, NULL, NULL, NULL, 1, 5, 0),
-(11, 1, 'Tennis de table', NULL, NULL, NULL, NULL, NULL, 2, 5, 0),
-(12, 1, 'Programmation (Raspberry PI)', NULL, NULL, NULL, NULL, NULL, 3, 5, 0),
+(9, 1, 'Culture générale', NULL, NULL, 'assets/cv/photos/culture-generale.jpg', NULL, NULL, 0, 5, 0),
+(10, 1, 'Randonnée pédestre', NULL, NULL, 'assets/cv/photos/randonnee.jpg', NULL, NULL, 1, 5, 0),
+(11, 1, 'Tennis de table', NULL, NULL, 'assets/cv/photos/table-tennis.jpg', NULL, NULL, 2, 5, 0),
+(12, 1, 'Programmation (Raspberry PI)', NULL, NULL, 'assets/cv/photos/raspberry-pi.jpg', NULL, NULL, 3, 5, 0),
 
 (13, 1, 'Initiation aux premiers secours', NULL, NULL, NULL, NULL, NULL, 0, 6, 0), 
 (14, 1, 'Permis B et véhicule', NULL, NULL, NULL, NULL, NULL, 1, 6, 0),
