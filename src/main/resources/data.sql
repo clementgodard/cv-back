@@ -45,3 +45,10 @@ INSERT INTO ligne (id, active, contenu, date_debut, date_fin, image, lien, note,
 (27, 1, 'JQuery', NULL, NULL, 'assets/cv/logo/jquery.png', NULL, 5, 5, 8, 0),
 (28, 1, 'Sass', NULL, NULL, 'assets/cv/logo/sass.png', NULL, 3, 7, 8, 0),
 (29, 1, 'Prestashop', NULL, NULL, 'assets/cv/logo/prestashop.png', NULL, 3, 7, 8, 0);
+
+INSERT INTO user (id, username, password, role) VALUES 
+(1, 'clement', '$2y$10$OBzIOVEBim42YJAx4p9LGuLJyz2s8EHNnATxxwfN2oxEiT/VMKO12', 'USER');
+
+ALTER TABLE categorie ALTER COLUMN id RESTART WITH 8;
+ALTER TABLE ligne ALTER COLUMN id RESTART WITH 29;
+ALTER TABLE user ALTER COLUMN id RESTART WITH 1;

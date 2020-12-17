@@ -45,7 +45,7 @@ public class Ligne implements Serializable {
     private Date dateFin;
     
     @Column(name="onlyYearDate")
-    private boolean onlyYear = false;
+    private boolean onlyYear;
     
     private URL lien;
     private String image;

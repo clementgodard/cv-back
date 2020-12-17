@@ -77,11 +77,17 @@ public class CategorieController {
     
     @PostMapping("/")
     public boolean add(Categorie cat) {
+    	
+    	// Faire un try catch (pour toute erreur de contrainte sql par exemple)
+    	
         return this.categorieRepo.save(cat).getId() != null;
     }
     
     @DeleteMapping("/{id:[\\d]+}")
     public boolean delete(@PathVariable("id") Long id) {
+    	
+    	// Faire un try catch
+    	
         this.categorieRepo.deleteById(id);
         return true;
     }

@@ -4,8 +4,6 @@ import fr.clems.cv.CV.dao.LigneDAO;
 import fr.clems.cv.CV.entity.Ligne;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,17 +42,18 @@ public class LigneController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pas de ligne correspodante");
     }
 
-    /* Methodes à protéger */
     @PostMapping("/")
     public boolean add(Ligne ligne) {
+    	
+    	// Faire un try catch
         Ligne l = this.ligneDao.save(ligne);
         
         return l.getId() > 0;
     }
     
-    /* Methodes à protéger */
     @DeleteMapping("/{id:[\\d]+}")
     public boolean delete(@PathVariable("id") Long id) {
+    	// Faire un try catch
         this.ligneDao.deleteById(id);
         return true;
     }
