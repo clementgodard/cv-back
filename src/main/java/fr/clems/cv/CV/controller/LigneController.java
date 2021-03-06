@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*")
@@ -54,7 +54,11 @@ public class LigneController {
     @DeleteMapping("/{id:[\\d]+}")
     public boolean delete(@PathVariable("id") Long id) {
     	// Faire un try catch
-        this.ligneDao.deleteById(id);
-        return true;
+    	try {
+    		this.ligneDao.deleteById(id);
+    		return true;
+    	} catch (EmptyResultDataAccessException e) {
+    		return false;
+    	}
     }
 }

@@ -49,6 +49,6 @@ INSERT INTO ligne (id, active, contenu, date_debut, date_fin, image, lien, note,
 INSERT INTO user (id, username, password, role) VALUES 
 (1, 'clement', '$2y$10$OBzIOVEBim42YJAx4p9LGuLJyz2s8EHNnATxxwfN2oxEiT/VMKO12', 'USER');
 
-ALTER TABLE categorie ALTER COLUMN id RESTART WITH 8;
-ALTER TABLE ligne ALTER COLUMN id RESTART WITH 29;
-ALTER TABLE user ALTER COLUMN id RESTART WITH 1;
+ALTER SEQUENCE Categorie_SEQ RESTART WITH 9;
+ALTER SEQUENCE Ligne_SEQ RESTART WITH 29;
+/* ALTER TABLE user ALTER COLUMN id RESTART WITH 1; */

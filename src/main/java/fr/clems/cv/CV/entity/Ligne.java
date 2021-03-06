@@ -23,7 +23,7 @@ public class Ligne implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "Ligne_SEQ", strategy = GenerationType.AUTO)
     private Long id;
     private String contenu;
     private Float note;
