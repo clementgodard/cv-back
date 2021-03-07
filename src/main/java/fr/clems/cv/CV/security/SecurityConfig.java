@@ -33,9 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.antMatchers(HttpMethod.POST, "/*").authenticated()
 			.antMatchers(HttpMethod.DELETE, "/*").authenticated()
 			.antMatchers(HttpMethod.PUT, "/*").authenticated()
+			.antMatchers("/user/").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			.httpBasic();
+		
+		http.cors();
 		
 		
 		boolean dev = false;

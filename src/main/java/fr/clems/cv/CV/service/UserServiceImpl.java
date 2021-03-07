@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserDetailsService {
 		
 		MyUser user = new MyUser(optuser.get());
 		
-		System.out.println(user.getAuthorities());
-		
 		return user;
 	}
 
