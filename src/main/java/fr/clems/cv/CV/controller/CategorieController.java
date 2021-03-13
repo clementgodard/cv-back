@@ -6,6 +6,7 @@ import fr.clems.cv.CV.entity.Ligne;
 import fr.clems.cv.CV.pojo.CategorieCV;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
@@ -33,10 +34,11 @@ public class CategorieController {
     // Retourne toutes les catégories active avec les lignes actives à l'intérieurs
     @GetMapping("/")
     public List<CategorieCV> getAll(@RequestParam(defaultValue="false", name="actif") boolean active) {
-        List<Categorie> lc = this.categorieRepo.getAllActiveOrderByPositionAsc();
+        ArrayList<Categorie> lc = new ArrayList<Categorie>(this.categorieRepo.getAllActiveOrderByPositionAsc());
 
         ArrayList<CategorieCV> res = new ArrayList<CategorieCV>();
-        
+
+        /*
         for (Categorie c : lc) {
             
             ArrayList<Ligne> r = new ArrayList<Ligne>();
@@ -61,6 +63,9 @@ public class CategorieController {
         		}
         	}
         }
+        */
+        
+        res = this.formatTree(lc);
         
         return res;
     }
@@ -92,4 +97,56 @@ public class CategorieController {
 			return false;
 		}
     }
+    
+    private ArrayList<CategorieCV> formatTree(ArrayList<Categorie> categories) {
+    	ArrayList<CategorieCV> res = new ArrayList<CategorieCV>();
+    	
+        for (Categorie c: categories) {
+        	res.add(new CategorieCV(c));
+        }
+        
+        ArrayList<Long> toRemove = new ArrayList<Long>();
+        
+        int index = 0;
+        for (Categorie categorie: categories) {
+        	for(CategorieCV c: res) {
+        		
+        		// Si une catégorie reconnait son parent
+        		if (categorie.getParent() != null && c.getId() == categorie.getParent().getId()) {        			
+    				c.enfants.add(new CategorieCV(categorie));
+    				toRemove.add(categorie.getId());
+        		}
+        	}
+        }
+        
+        Iterator<CategorieCV> it = res.iterator();
+        while( it.hasNext() ) {
+         
+          CategorieCV c = it.next();
+          
+          for (Long idToRemove: toRemove) {
+	          if( c.getId() == idToRemove ) {	        	  
+	        	  // Le problème est que la catégorie avec des enfants est supprimée alors que la catégorie sans enfants dans res est envoyée
+	        	  it.remove();
+	          }
+          }
+        }
+        
+    	return res;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

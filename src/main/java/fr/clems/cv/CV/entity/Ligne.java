@@ -139,4 +139,22 @@ public class Ligne implements Serializable {
 	public void setOnlyYear(boolean onlyYear) {
 		this.onlyYear = onlyYear;
 	}
+	
+	@Override
+	public String toString() {
+		String res = "";
+		
+		res += (this.contenu != null) ? this.contenu + "\n" : "";
+		res += this.active + "\n";
+		res += (this.image != null) ? this.image + "\n" : "";
+		res += (this.dateDebut != null) ? this.dateDebut.toString() + "\n" : "";
+		res += (this.dateFin != null) ? this.dateFin.toString() + "\n" : "";
+		res += this.position + "\n";
+		res += this.note + "\n";
+		res += this.onlyYear + "\n";
+		res += (this.lien != null) ? this.lien.toString() + "\n" : "";
+		res += (this.categorie != null) ? this.categorie.getId() + "\n" : "";
+		
+		return res;
+	}
 }

@@ -44,8 +44,6 @@ public class LigneController {
 
     @PostMapping("/")
     public boolean add(Ligne ligne) {
-    	
-    	// Faire un try catch
         Ligne l = this.ligneDao.save(ligne);
         
         return l.getId() > 0;
@@ -53,7 +51,6 @@ public class LigneController {
     
     @DeleteMapping("/{id:[\\d]+}")
     public boolean delete(@PathVariable("id") Long id) {
-    	// Faire un try catch
     	try {
     		this.ligneDao.deleteById(id);
     		return true;
