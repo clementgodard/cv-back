@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,37 +34,16 @@ public class CategorieController {
     
     // Retourne toutes les catégories active avec les lignes actives à l'intérieurs
     @GetMapping("/")
-    public List<CategorieCV> getAll(@RequestParam(defaultValue="false", name="actif") boolean active) {
-        ArrayList<Categorie> lc = new ArrayList<Categorie>(this.categorieRepo.getAllActiveOrderByPositionAsc());
-
+    public List<CategorieCV> getAll(@RequestParam(defaultValue="true", name="actif") boolean onlyActive) {
+    	
+    	ArrayList<Categorie> lc;
+    	
+    	if (onlyActive) 
+    		lc = new ArrayList<Categorie>(this.categorieRepo.getAllActiveOrderByPositionAsc());
+    	else
+    		lc = new ArrayList<Categorie>(this.categorieRepo.findAll());
+    	
         ArrayList<CategorieCV> res = new ArrayList<CategorieCV>();
-
-        /*
-        for (Categorie c : lc) {
-            
-            ArrayList<Ligne> r = new ArrayList<Ligne>();
-            
-            for (Ligne l : c.getLignes()) {
-                if (l.isActive() || active)
-                    r.add(l);
-            }
-            
-            c.setLignes(r);
-            
-            if (c.getParent() == null)
-            	res.add(new CategorieCV(c));
-        }
-        
-        for (Categorie c: lc) {
-        	if (c.getParent() != null) {
-        		for (CategorieCV cat: res) {
-        			if (cat.equals(c.getParent())) {
-        				cat.enfants.add(new CategorieCV(c));
-        			}
-        		}
-        	}
-        }
-        */
         
         res = this.formatTree(lc);
         
@@ -71,13 +51,25 @@ public class CategorieController {
     }
     
     @GetMapping("/{id:[\\d]+}")
-    public Categorie getById(@PathVariable("id") Long id, HttpServletResponse response) {
+    public Categorie getById(@PathVariable("id") Long id) {
         Optional<Categorie> opt = this.categorieRepo.findById(id);
         
         if (opt.isPresent())
             return opt.get();
         
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pas de categorie correspondante");
+    }
+    
+    @GetMapping("/parent/{id:[\\d]+}")
+    public Long getIdParent(@PathVariable("id") Long id) {
+    	Optional<Categorie> opt = this.categorieRepo.findById(id);
+    	
+    	if (opt.isPresent()) {
+    		if (opt.get().getParent() != null)
+    			return opt.get().getParent().getId();
+    	}
+    	
+    	return null;
     }
     
     @PostMapping("/")
@@ -98,6 +90,16 @@ public class CategorieController {
 		}
     }
     
+    @PutMapping("/")
+    public boolean update(Categorie categorie) {
+    	try {
+    		this.categorieRepo.save(categorie);
+    		return true;
+    	} catch (IllegalArgumentException e) {
+    		return false;
+    	}
+    }
+    
     private ArrayList<CategorieCV> formatTree(ArrayList<Categorie> categories) {
     	ArrayList<CategorieCV> res = new ArrayList<CategorieCV>();
     	
@@ -107,13 +109,14 @@ public class CategorieController {
         
         ArrayList<Long> toRemove = new ArrayList<Long>();
         
-        int index = 0;
         for (Categorie categorie: categories) {
         	for(CategorieCV c: res) {
-        		
         		// Si une catégorie reconnait son parent
-        		if (categorie.getParent() != null && c.getId() == categorie.getParent().getId()) {        			
-    				c.enfants.add(new CategorieCV(categorie));
+        		if (categorie.getParent() != null && c.getId() == categorie.getParent().getId()) {
+        			for (CategorieCV c2: res) {
+        				if (c2.getId() == categorie.getId())
+        					c.enfants.add(c2);
+        			}
     				toRemove.add(categorie.getId());
         		}
         	}
@@ -121,12 +124,10 @@ public class CategorieController {
         
         Iterator<CategorieCV> it = res.iterator();
         while( it.hasNext() ) {
-         
           CategorieCV c = it.next();
           
           for (Long idToRemove: toRemove) {
 	          if( c.getId() == idToRemove ) {	        	  
-	        	  // Le problème est que la catégorie avec des enfants est supprimée alors que la catégorie sans enfants dans res est envoyée
 	        	  it.remove();
 	          }
           }

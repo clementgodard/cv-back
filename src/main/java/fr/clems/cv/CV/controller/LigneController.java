@@ -1,6 +1,7 @@
 package fr.clems.cv.CV.controller;
 
 import fr.clems.cv.CV.dao.LigneDAO;
+import fr.clems.cv.CV.entity.Categorie;
 import fr.clems.cv.CV.entity.Ligne;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -55,6 +57,16 @@ public class LigneController {
     		this.ligneDao.deleteById(id);
     		return true;
     	} catch (EmptyResultDataAccessException e) {
+    		return false;
+    	}
+    }
+    
+    @PutMapping("/")
+    public boolean update(Ligne ligne) {
+    	try {
+    		this.ligneDao.save(ligne);
+    		return true;
+    	} catch (IllegalArgumentException e) {
     		return false;
     	}
     }
