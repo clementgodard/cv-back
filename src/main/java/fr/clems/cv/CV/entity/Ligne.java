@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,10 +33,10 @@ public class Ligne implements Serializable {
     private Long id;
     private String contenu;
     private Float note;
-    private int position;
+    private Integer position;
     
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(targetEntity=Categorie.class)
     @JoinColumn(name="categorie_id", nullable=false)
     private Categorie categorie;
     
@@ -45,12 +51,12 @@ public class Ligne implements Serializable {
     private Date dateFin;
     
     @Column(name="onlyYearDate")
-    private boolean onlyYear;
+    private Boolean onlyYear;
     
     private URL lien;
     private String image;
     
-    private boolean active;
+    private Boolean active;
     
     public Long getId() {
         return id;
@@ -100,11 +106,11 @@ public class Ligne implements Serializable {
         this.lien = lien;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -124,19 +130,19 @@ public class Ligne implements Serializable {
         this.note = note;
     }
 
-    public int getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
-	public boolean isOnlyYear() {
+	public Boolean isOnlyYear() {
 		return onlyYear;
 	}
 
-	public void setOnlyYear(boolean onlyYear) {
+	public void setOnlyYear(Boolean onlyYear) {
 		this.onlyYear = onlyYear;
 	}
 	

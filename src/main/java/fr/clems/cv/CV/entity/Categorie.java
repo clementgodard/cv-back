@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name="categorie")
 public class Categorie implements Serializable 
@@ -27,20 +31,20 @@ public class Categorie implements Serializable
     
     @Column(unique = true, nullable = false)
     private String libelle;
-    private int position;
-    private boolean active;
+    private Integer position;
+    private Boolean active;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="categorie", cascade={CascadeType.ALL})
+    @OneToMany(mappedBy="categorie", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Ligne> lignes;
     
-    @JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class, 
-        property = "id")
-    @ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @ManyToOne(targetEntity=Categorie.class)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Categorie parent;
     
-    private boolean imageCategorie = false;
+    private Boolean imageCategorie = false;
             
     public Long getId() {
         return id;
@@ -58,11 +62,11 @@ public class Categorie implements Serializable
         this.libelle = libelle;
     }
 
-    public int getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
@@ -74,11 +78,11 @@ public class Categorie implements Serializable
         this.lignes = lignes;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -90,11 +94,11 @@ public class Categorie implements Serializable
         this.parent = parent;
     }
 
-	public boolean isImageCategorie() {
+	public Boolean isImageCategorie() {
 		return imageCategorie;
 	}
 
-	public void setImageCategorie(boolean imageCategorie) {
+	public void setImageCategorie(Boolean imageCategorie) {
 		this.imageCategorie = imageCategorie;
 	}
     
