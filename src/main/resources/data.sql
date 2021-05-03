@@ -7,7 +7,9 @@ INSERT INTO categorie (id, active, libelle, position, parent_id, image_categorie
 (5, 1, 'Centres d''intérêts', 4, NULL, 1),
 (6, 1, 'Informations complémentaires', 5, NULL, 0),
 (7, 1, 'Langages', 0 ,3, 1),
-(8, 1, 'Frameworks', 1, 3, 1);
+(8, 1, 'Frameworks', 1, 3, 1),
+(9, 1, 'Système', 2, 3, 1),
+(10, 1, 'IDE', 3, 3, 0);
 
 INSERT INTO ligne (id, active, contenu, date_debut, date_fin, image, lien, note, position, categorie_id, only_year_date) VALUES 
 (1, 1, 'Formation "développeur web et mobile, JavaScript / J2EE" de 5 mois à la Wild Code School de La Loupe', '2019-01-01', NULL, NULL, NULL, NULL, 0, 1, 1),
@@ -21,30 +23,42 @@ INSERT INTO ligne (id, active, contenu, date_debut, date_fin, image, lien, note,
 
 (8, 1, 'Anglais - Niveau B2', NULL, NULL, NULL, NULL, 4, 0, 4, 0),
 
-(9, 1, 'Culture générale', NULL, NULL, 'assets/cv/photos/culture-generale.jpg', NULL, NULL, 0, 5, 0),
+(9, 0, 'Culture générale', NULL, NULL, 'assets/cv/photos/culture-generale.jpg', NULL, NULL, 0, 5, 0),
 (10, 1, 'Randonnée pédestre', NULL, NULL, 'assets/cv/photos/randonnee.jpg', NULL, NULL, 1, 5, 0),
 (11, 1, 'Tennis de table', NULL, NULL, 'assets/cv/photos/table-tennis.jpg', NULL, NULL, 2, 5, 0),
-(12, 1, 'Programmation (Raspberry PI)', NULL, NULL, 'assets/cv/photos/raspberry-pi.jpg', NULL, NULL, 3, 5, 0),
+(12, 1, 'Raspberry PI', NULL, NULL, 'assets/cv/photos/raspberry-pi.jpg', NULL, NULL, 3, 5, 0),
 
 (13, 1, 'Initiation aux premiers secours', NULL, NULL, NULL, NULL, NULL, 0, 6, 0), 
 (14, 1, 'Permis B et véhicule', NULL, NULL, NULL, NULL, NULL, 1, 6, 0),
+(39, 1, 'Région Normandie', NULL, NULL, NULL, NULL, NULL, 2, 6, 0),
 
-(15, 1, 'Java', NULL, NULL, 'assets/cv/logo/java.png', NULL, 5, 0, 7, 0),
-(16, 1, 'Php', NULL, NULL, 'assets/cv/logo/php.png', NULL, 5, 1, 7, 0),
-(17, 1, 'C/C++', NULL, NULL, 'assets/cv/logo/c++.png', NULL, 2, 2, 7, 0),
+(15, 1, 'Java', NULL, NULL, 'assets/cv/logo/java.png', NULL, 4.5, 0, 7, 0),
+(16, 1, 'Php', NULL, NULL, 'assets/cv/logo/php.png', NULL, 4.5, 1, 7, 0),
+(17, 0, 'C/C++', NULL, NULL, 'assets/cv/logo/c++.png', NULL, 2, 2, 7, 0),
 (18, 1, 'Html', NULL, NULL, 'assets/cv/logo/html.png', NULL, 4, 3, 7, 0),
 (19, 1, 'Css', NULL, NULL, 'assets/cv/logo/css.png', NULL, 3, 4, 7, 0),
-(20, 1, 'Javascript', NULL, NULL, 'assets/cv/logo/js.png', NULL, 5, 5, 7, 0),
-(21, 1, 'Sql', NULL, NULL, 'assets/cv/logo/sql.png', NULL, 4, 6, 7, 0),
+(20, 1, 'Javascript', NULL, NULL, 'assets/cv/logo/js.png', NULL, 4, 5, 7, 0),
+(21, 1, 'Sql', NULL, NULL, 'assets/cv/logo/sql.png', NULL, 3.5, 6, 7, 0),
 
 (22, 1, 'Spring', NULL, NULL, 'assets/cv/logo/spring.png', NULL, 4, 0, 8, 0),
 (23, 1, 'Symfony', NULL, NULL, 'assets/cv/logo/symfony.png', NULL, 4, 1, 8, 0),
-(24, 1, 'Qt', NULL, NULL, 'assets/cv/logo/qt.png', NULL, 2, 2, 8, 0),
+(24, 0, 'Qt', NULL, NULL, 'assets/cv/logo/qt.png', NULL, 2, 2, 8, 0),
 (25, 1, 'Bootstrap', NULL, NULL, 'assets/cv/logo/bootstrap4.png', NULL, 4, 3, 8, 0),
 (26, 1, 'Angular', NULL, NULL, 'assets/cv/logo/angular.png', NULL, 3, 4, 8, 0),
 (27, 1, 'JQuery', NULL, NULL, 'assets/cv/logo/jquery.png', NULL, 5, 5, 8, 0),
 (28, 1, 'Sass', NULL, NULL, 'assets/cv/logo/sass.png', NULL, 3, 7, 8, 0),
-(29, 1, 'Prestashop', NULL, NULL, 'assets/cv/logo/prestashop.png', NULL, 3, 7, 8, 0);
+(29, 0, 'Prestashop', NULL, NULL, 'assets/cv/logo/prestashop.png', NULL, 3, 7, 8, 0),
+
+(30, 1, 'Debian', NULL, NULL, '', NULL, 4, 0, 9, 0),
+(31, 1, 'Apache 2', NULL, NULL, '', NULL, 3.5, 1, 9, 0),
+(32, 1, 'MySQL', NULL, NULL, '', NULL, 3, 2, 9, 0),
+(33, 1, 'GIT', NULL, NULL, '', NULL, 4, 3, 9, 0),
+(34, 1, 'GitLab (CI)', NULL, NULL, '', NULL, 3, 4, 9, 0),
+(35, 1, 'Redmine', NULL, NULL, '', NULL, 3.5, 5, 9, 0),
+
+(36, 1, 'PhpStorm', NULL, NULL, '', NULL, 4, 0, 10, 0),
+(37, 1, 'Visual Studio Code', NULL, NULL, '', NULL, 3, 1, 10, 0),
+(38, 1, 'Netbeans', NULL, NULL, '', NULL, 2.5, 2, 10, 0); 
 
 INSERT INTO user (id, username, password, role) VALUES 
 (1, 'clement', '$2y$10$OBzIOVEBim42YJAx4p9LGuLJyz2s8EHNnATxxwfN2oxEiT/VMKO12', 'USER');

@@ -1,6 +1,7 @@
 package fr.clems.cv.CV.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import fr.clems.cv.CV.entity.Categorie;
@@ -31,6 +32,12 @@ public class CategorieUtil {
         		}
         	}
         }
+        
+    	for(CategorieCV c: res) {
+    		if (c.getLignes() != null && c.getLignes().size() > 0) {                
+                Collections.sort(c.getLignes(), new LigneSorter());
+    		}
+    	}
         
         for (Categorie categorie: categories) {
         	for(CategorieCV c: res) {
