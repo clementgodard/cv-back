@@ -125,25 +125,25 @@ public class LigneController {
     		ligne.setContenu(patch.getContenu());
     	}
     	
-    	if (patch.getDateDebut() != null && patch.getDateDebut() != ligne.getDateDebut()) {
+    	// if (patch.getDateDebut() != null && patch.getDateDebut() != ligne.getDateDebut()) {
     		ligne.setDateDebut(patch.getDateDebut());
-    	}
+    	// }
     	
-    	if (patch.getDateFin() != null && patch.getDateFin() != ligne.getDateFin()) {
+    	// if (patch.getDateFin() != null && patch.getDateFin() != ligne.getDateFin()) {
     		ligne.setDateFin(patch.getDateFin());
-    	}
+    	// }
     	
     	if (patch.getImage() != null && patch.getImage() != ligne.getImage()) {
     		ligne.setImage(patch.getImage());
     	}
     	
-    	if (patch.getLien() != null && patch.getLien() != ligne.getLien()) {
+    	// if (patch.getLien() != null && patch.getLien() != ligne.getLien()) {
     		ligne.setLien(patch.getLien());
-    	}
+    	// }
     	
-    	if (patch.getNote() != null && patch.getNote() != ligne.getNote()) {
+    	// if (patch.getNote() != null && patch.getNote() != ligne.getNote()) {
     		ligne.setNote(patch.getNote());
-    	}
+    	// }
     	
     	if (patch.getPosition() != null && patch.getPosition() != ligne.getPosition()) {
     		ligne.setPosition(patch.getPosition());

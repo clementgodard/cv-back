@@ -54,9 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		}
 		
 		if (dev) {
-			http.csrf().disable();
-			http.headers().frameOptions().disable();
+			http.headers().frameOptions().disable(); // Pour l'administration de h2
 		}
+		
+		http.csrf().disable();
 	}
 	
 	
